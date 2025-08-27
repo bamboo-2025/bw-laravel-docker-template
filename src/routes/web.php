@@ -18,3 +18,7 @@ Route::get('/', function () {
 // 追加
 Route::get('/todo',  'TodoController@index');
 Route::get('/todo/create', 'TodoController@create')->name('todo.create');; // 追記。ボタンを押下した際にリクエストするルートを定義する。ルートの定義に->name('ルート名')を記述して名前付きルートを定義。
+
+Route::post('/todo', 'TodoController@store')->name('todo.store');//フォームが送信された時にリクエストする、新規作成処理のルートを設定。
+
+Route::get('/todo', 'TodoController@index')->name('todo.index'); // ルート名の定義を追記
