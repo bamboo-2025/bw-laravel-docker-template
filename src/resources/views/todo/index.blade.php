@@ -34,7 +34,14 @@
                 ToDo一覧
               </div>
               <div class="list-group list-group-flush">
-              </div>
+               @foreach ($todos as $todo)
+               <!-- @…は「ディレクティブ」一般的なPHPの制御構文の便利な短縮記述方法 -->
+                  <div class="d-flex align-items-center p-2">
+                    <!-- 画面上に取得したデータを表示 -->
+                    <span class="col-9">{{ $todo->content }}</span> 
+                    <!-- bladeでは、PHPを記述する際に{{ }}を用いる。この波括弧で囲うことで、その部分がPHPの処理として認識される。 -->
+            </div>
+            @endforeach
             </div>
           </div>
         </div>
