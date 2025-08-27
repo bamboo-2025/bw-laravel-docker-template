@@ -29,12 +29,16 @@ class TodoController extends Controller
 
     public function store(Request $request)// 追記。$requestにRequestクラスのインスタンスを代入している。Laravelでは、メソッドの引数の左側にクラス名を書くことで、インスタンス化が自動で行われる。これを「メソッドインジェクション」と呼ぶ。
 {
-    $content = $request->input('content'); // 追記
+    $inputs = $request->all(); // 追記からの変更
+    // dd($inputs); // 追記
 
     // 1. todosテーブルの1レコードを表すTodoクラスをインスタンス化
     $todo = new Todo(); 
+
+    // $todo->user_id = Auth::id(); // ログインしている攻撃者のユーザID：～を代入
+
     // 2. Todoインスタンスのカラム名のプロパティに保存したい値を代入
-    $todo->content = $content;
+    $todo->fill($inputs);//変更
      // 3. Todoインスタンスの`->save()`を実行してオブジェクトの状態をDBに保存するINSERT文を実行
     $todo->save();
 
