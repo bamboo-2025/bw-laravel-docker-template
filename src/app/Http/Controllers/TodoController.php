@@ -19,5 +19,12 @@ class TodoController extends Controller
 
         return view('todo.index',['todos' => $todos]); // 修正。view関数は画面に表示したいbladeファイルを第一引数で指定し、第二引数に渡したいデータを連想配列の形で渡すことができる。
     }
+    //追加
+    public function create()
+    {
+        // TODO: 第1引数を指定
+        return view('todo.create'); // 追記。view関数は「画面を表示したい」ときに使う関数。「return view('フォルダ名.ファイル名');」
+    }
     // <ここまで>
 }
+

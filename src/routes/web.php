@@ -17,3 +17,4 @@ Route::get('/', function () {
 
 // 追加
 Route::get('/todo',  'TodoController@index');
+Route::get('/todo/create', 'TodoController@create'); // 追記。ボタンを押下した際にリクエストするルートを定義する。
