@@ -49,7 +49,8 @@
                   {{--画面上に取得したデータを表示--}}
                 <span class="col-9">{{ $todo->content }}</span> 
                   {{--bladeでは、PHPを記述する際に{{ }}を用いる。この波括弧で囲うことで、その部分がPHPの処理として認識される。--}}
-              </div>
+                  <a href="{{ route('todo.show', $todo->id) }}" class="btn btn-info ml-3">詳細</a>
+                </div>
             @endforeach
             </div>
           </div>

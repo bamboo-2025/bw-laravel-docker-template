@@ -22,3 +22,8 @@ Route::get('/todo/create', 'TodoController@create')->name('todo.create');; // �
 Route::post('/todo', 'TodoController@store')->name('todo.store');//フォームが送信された時にリクエストする、新規作成処理のルートを設定。
 
 Route::get('/todo', 'TodoController@index')->name('todo.index'); // ルート名の定義を追記
+
+Route::get('/todo/{id}', 'TodoController@show')->name('todo.show');//詳細画面への遷移ボタンをクリックした際にリクエストするルートをRoute::get()を使用して定義する。
+// /{id}の部分は、ルートパラメータと言います。
+// 例えば、/todo/1や/todo/2の「1」や「2」のような変数の部分をルートパラメータと言います。
+// {}で変数ということを示します。

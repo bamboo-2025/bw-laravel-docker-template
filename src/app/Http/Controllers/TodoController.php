@@ -44,5 +44,14 @@ class TodoController extends Controller
 
     return redirect()->route('todo.index'); // 追記
 }
+    public function show($id)
+    {
+        $model = new Todo();
+        $todo = $model->find($id);
+        // find()メソッドを使用して、指定のIDのデータを取得します。
+        // データベースのidカラムが$idの値と一致するレコードを取得しています。
+    
+        return view('todo.show', ['todo' => $todo]); // 追記
+    }
 }
 
