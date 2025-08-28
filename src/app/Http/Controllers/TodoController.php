@@ -9,12 +9,20 @@ use Illuminate\Http\Request;//追記
 
 class TodoController extends Controller
 {
+    private $todo; // 追記。TodoControllerのクラスプロパティ。
+    
+    // ここから
+    public function __construct(Todo $todo)
+    {
+        $this->todo = $todo; // 追記。コンストラクタインジェクションで生成したTodoクラスのインスタンスをプロパティに代入している。Todoクラスのインスタンスをコントローラ内で使いまわすことができるようになる。
+    }
+    // ここまで
+    
     // <ここから>
     public function index()
     {
 // 追加
-        $todo = new Todo();//インスタンス化
-        $todos = $todo->all();//SQL文を組み立てず、todosテーブルから全てのレコードを取得することができる。
+        $todos =  $this->todo->all();//SQL文を組み立てず、todosテーブルから全てのレコードを取得することができる。
         // dd($todos);//デバッグ（PHP Appの時のvar_dumpと同じ役割）。Illuminate\Database\Eloquent\Collectionクラスのインスタンス。
 
         return view('todo.index',['todos' => $todos]); // 修正。view関数は画面に表示したいbladeファイルを第一引数で指定し、第二引数に渡したいデータを連想配列の形で渡すことができる。
@@ -38,16 +46,15 @@ class TodoController extends Controller
     // $todo->user_id = Auth::id(); // ログインしている攻撃者のユーザID：～を代入
 
     // 2. Todoインスタンスのカラム名のプロパティに保存したい値を代入
-    $todo->fill($inputs);//変更
+    $this->todo->fill($inputs);//変更
      // 3. Todoインスタンスの`->save()`を実行してオブジェクトの状態をDBに保存するINSERT文を実行
-    $todo->save();
-
+    $this->todo->save(); // 変更
+    
     return redirect()->route('todo.index'); // 追記
 }
     public function show($id)
     {
-        $model = new Todo();
-        $todo = $model->find($id);
+        $todo = $this->todo->find($id);
         // find()メソッドを使用して、指定のIDのデータを取得します。
         // データベースのidカラムが$idの値と一致するレコードを取得しています。
     
