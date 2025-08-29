@@ -49,7 +49,7 @@ class TodoController extends Controller
     $this->todo->fill($inputs);//変更
      // 3. Todoインスタンスの`->save()`を実行してオブジェクトの状態をDBに保存するINSERT文を実行
     $this->todo->save(); // 変更
-    
+
     return redirect()->route('todo.index'); // 追記
 }
     public function show($id)
@@ -60,5 +60,14 @@ class TodoController extends Controller
     
         return view('todo.show', ['todo' => $todo]); // 追記
     }
-}
 
+    // TODO: ルートパラメータを引数に受け取る
+    public function edit()
+    {
+    // TODO: 編集対象のレコードの情報を持つTodoモデルのインスタンスを取得
+    $todo = new Todo();
+    // dd($todo);
+    // TODO: view()を使用して編集画面を表示
+    return view('todo.edit', ['todo' => $todo]);
+    }
+}

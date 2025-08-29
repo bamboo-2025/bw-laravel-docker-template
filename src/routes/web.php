@@ -27,3 +27,5 @@ Route::get('/todo/{id}', 'TodoController@show')->name('todo.show');//詳細画�
 // /{id}の部分は、ルートパラメータと言います。
 // 例えば、/todo/1や/todo/2の「1」や「2」のような変数の部分をルートパラメータと言います。
 // {}で変数ということを示します。
+
+Route::get('/todo/{id}/edit', 'TodoController@edit')->name('todo.edit');//詳細画面と更新画面で画面を分けるため、編集画面のルートの最後には /edit を追加している。
