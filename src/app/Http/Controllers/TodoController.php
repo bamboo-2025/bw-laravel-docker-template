@@ -62,12 +62,24 @@ class TodoController extends Controller
     }
 
     // TODO: ルートパラメータを引数に受け取る
-    public function edit()
+    public function edit($id)
     {
     // TODO: 編集対象のレコードの情報を持つTodoモデルのインスタンスを取得
-    $todo = new Todo();
+    $todo = $this->todo->find($id);
     // dd($todo);
     // TODO: view()を使用して編集画面を表示
     return view('todo.edit', ['todo' => $todo]);
+    }
+
+    public function update(Request $request, $id) // 第1引数: リクエスト情報の取得　第2引数: ルートパラメータの取得
+    {
+    // TODO: リクエストされた値を取得
+        $inputs = $request->all();
+        // dd($inputs);
+        $todo = $this->todo->find($id);
+    // TODO: 更新したい値の代入とUPDATE文の実行
+        $todo->fill($inputs)->save();
+
+        return redirect()->route('todo.show', $todo->id); // 追記
     }
 }

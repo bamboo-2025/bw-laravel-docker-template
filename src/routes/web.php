@@ -29,3 +29,5 @@ Route::get('/todo/{id}', 'TodoController@show')->name('todo.show');//詳細画�
 // {}で変数ということを示します。
 
 Route::get('/todo/{id}/edit', 'TodoController@edit')->name('todo.edit');//詳細画面と更新画面で画面を分けるため、編集画面のルートの最後には /edit を追加している。
+
+Route::put('/todo/{id}', 'TodoController@update')->name('todo.update');//特定のToDo（/todo/{id}）に対して更新（put()）を行うルートを設定した。
