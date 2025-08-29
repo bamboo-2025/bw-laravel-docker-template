@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-// 追加
-use App\Todo;
+use App\Http\Requests\TodoRequest; // 追加
+use App\Todo;// 追加
 
 use Illuminate\Http\Request;//追記
 
@@ -21,7 +21,7 @@ class TodoController extends Controller
     // <ここから>
     public function index()
     {
-// 追加
+        // 追加 
         $todos =  $this->todo->all();//SQL文を組み立てず、todosテーブルから全てのレコードを取得することができる。
         // dd($todos);//デバッグ（PHP Appの時のvar_dumpと同じ役割）。Illuminate\Database\Eloquent\Collectionクラスのインスタンス。
 
@@ -35,23 +35,24 @@ class TodoController extends Controller
     }
     // <ここまで>
 
-    public function store(Request $request)// 追記。$requestにRequestクラスのインスタンスを代入している。Laravelでは、メソッドの引数の左側にクラス名を書くことで、インスタンス化が自動で行われる。これを「メソッドインジェクション」と呼ぶ。
-{
-    $inputs = $request->all(); // 追記からの変更
-    // dd($inputs); // 追記
+    public function store(TodoRequest $request)// 追記。$requestにRequestクラスのインスタンスを代入している。Laravelでは、メソッドの引数の左側にクラス名を書くことで、インスタンス化が自動で行われる。これを「メソッドインジェクション」と呼ぶ。// 修正
+    {
+        $inputs = $request->all(); // 追記からの変更
+        // dd($inputs); // 追記
 
-    // 1. todosテーブルの1レコードを表すTodoクラスをインスタンス化
-    $todo = new Todo(); 
+        // 1. todosテーブルの1レコードを表すTodoクラスをインスタンス化
+        // $todo = new Todo(); 
 
-    // $todo->user_id = Auth::id(); // ログインしている攻撃者のユーザID：～を代入
+        // $todo->user_id = Auth::id(); // ログインしている攻撃者のユーザID：～を代入
 
-    // 2. Todoインスタンスのカラム名のプロパティに保存したい値を代入
-    $this->todo->fill($inputs);//変更
-     // 3. Todoインスタンスの`->save()`を実行してオブジェクトの状態をDBに保存するINSERT文を実行
-    $this->todo->save(); // 変更
+        // 2. Todoインスタンスのカラム名のプロパティに保存したい値を代入
+        $this->todo->fill($inputs);//変更
+        // 3. Todoインスタンスの`->save()`を実行してオブジェクトの状態をDBに保存するINSERT文を実行
+        $this->todo->save(); // 変更
 
-    return redirect()->route('todo.index'); // 追記
-}
+        return redirect()->route('todo.index'); // 追記
+    }
+
     public function show($id)
     {
         $todo = $this->todo->find($id);
@@ -71,15 +72,15 @@ class TodoController extends Controller
     return view('todo.edit', ['todo' => $todo]);
     }
 
-    public function update(Request $request, $id) // 第1引数: リクエスト情報の取得　第2引数: ルートパラメータの取得
+    public function update(TodoRequest $request, $id) // 第1引数: リクエスト情報の取得　第2引数: ルートパラメータの取得//修正
     {
-    // TODO: リクエストされた値を取得
+        // TODO: リクエストされた値を取得
         $inputs = $request->all();
         // dd($inputs);
         $todo = $this->todo->find($id);
-    // TODO: 更新したい値の代入とUPDATE文の実行
-        $todo->fill($inputs)->save();
-
+        // TODO: 更新したい値の代入とUPDATE文の実行
+        $todo->fill($inputs);
+        $todo->save();
         return redirect()->route('todo.show', $todo->id); // 追記
     }
 }
