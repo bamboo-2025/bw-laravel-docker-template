@@ -18,6 +18,7 @@ class TodoController extends Controller
     }
     // ここまで
     
+    //ホーム画面的なもの
     // <ここから>
     public function index()
     {
@@ -35,6 +36,7 @@ class TodoController extends Controller
     }
     // <ここまで>
 
+    //保存
     public function store(TodoRequest $request)// 追記。$requestにRequestクラスのインスタンスを代入している。Laravelでは、メソッドの引数の左側にクラス名を書くことで、インスタンス化が自動で行われる。これを「メソッドインジェクション」と呼ぶ。// 修正
     {
         $inputs = $request->all(); // 追記からの変更
@@ -53,6 +55,7 @@ class TodoController extends Controller
         return redirect()->route('todo.index'); // 追記
     }
 
+    //詳細画面
     public function show($id)
     {
         $todo = $this->todo->find($id);
@@ -62,6 +65,7 @@ class TodoController extends Controller
         return view('todo.show', ['todo' => $todo]); // 追記
     }
 
+    //編集
     // TODO: ルートパラメータを引数に受け取る
     public function edit($id)
     {
@@ -72,6 +76,8 @@ class TodoController extends Controller
     return view('todo.edit', ['todo' => $todo]);
     }
 
+
+    //更新
     public function update(TodoRequest $request, $id) // 第1引数: リクエスト情報の取得　第2引数: ルートパラメータの取得//修正
     {
         // TODO: リクエストされた値を取得
@@ -82,5 +88,14 @@ class TodoController extends Controller
         $todo->fill($inputs);
         $todo->save();
         return redirect()->route('todo.show', $todo->id); // 追記
+    }
+
+    //削除
+    public function delete($id)
+    {
+        // TODO: 削除対象のレコードの情報を持つTodoモデルのインスタンスを取得
+        $todo = $this->todo->find($id);
+        $todo->delete(); // 追記
+        return redirect()->route('todo.index');
     }
 }
