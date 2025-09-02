@@ -11,6 +11,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+        $this->call([
+            TodoSeeder::class,//コメントアウトしていたのを解除して[]を追加した
+        ]);
     }
 }
