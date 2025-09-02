@@ -43,7 +43,7 @@
                 ToDo一覧
               </div>
               <div class="list-group list-group-flush">
-               @foreach ($todos as $todo)
+              @foreach ($todos as $todo)
                {{-- @…は「ディレクティブ」一般的なPHPの制御構文の便利な短縮記述方法 --}}
               <div class="d-flex align-items-center p-2">
                   {{--画面上に取得したデータを表示--}}

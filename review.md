@@ -13,7 +13,7 @@ Laravelで用意されている配列操作に特化したクラスなので、�
 <!-- view関数を用いることで、画面として表示したいHTMLを指定することができます。
 view関数の引数には、表示させたいBladeファイルを指定する必要があり、「resources/views/から対象の*.blade.phpまでの相対パスを.区切りで指定」します。 -->
 ### index.blade.phpの$todos・$todoに代入されているものは何か
-$todosは登録されたすべてのレコード、$todoはインスタンス化されたtodosテーブルの1レコードを表すTodoクラス。
+$todosには、Controllerにて取得したCollectionインスタンスが、$todoにはインスタンス化されたtodosテーブルの1レコードを表すTodoクラスが代入されている。
 ## Todo作成機能
 
 ### Requestクラスのallメソッドは何をしているか
